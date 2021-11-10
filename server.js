@@ -46,6 +46,7 @@ app.get('/posts/:id', async(req, res, next) => {
     const response = await client.query('SELECT * FROM users WHERE id=$1;', [req.params.id]);
     const characters = response.rows;
 
+    // this res.send only uses some of my css, I think its only using my inline styles...
         res.send(
             `<!DOCTYPE html>
             <html>
@@ -67,12 +68,15 @@ app.get('/posts/:id', async(req, res, next) => {
                     </p>
                     </div>
                 </div>`).join('')}
-                
+
                 </body>
             </html>`
                 )
     
     }
+
+    //tried to make a custom error page, works sometimes, maybe there's another way to make this work?
+
     catch (e) {
         e = res.send(
               `<!DOCTYPE html>
