@@ -1,18 +1,29 @@
 {
   "name": "wizardnews",
   "version": "1.0.0",
-  "description": "",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "nodemon app.js",
+    "start:dev": "nodemon server"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "nodemon": "^1.14.7"
+    "nodemon": "^2.0.14"
   },
   "dependencies": {
     "express": "^4.16.2",
-    "morgan": "^1.10.0"
-  }
+    "morgan": "^1.10.0",
+    "pg": "^8.7.1"
+  },
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/k-zammito/dealers_choice_js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/k-zammito/dealers_choice_js/issues"
+  },
+  "homepage": "https://github.com/k-zammito/dealers_choice_js#readme",
+  "description": ""
 }
