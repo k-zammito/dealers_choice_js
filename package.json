@@ -12,9 +12,11 @@
     "nodemon": "^2.0.14"
   },
   "dependencies": {
+    "chalk": "^4.1.2",
     "express": "^4.16.2",
     "morgan": "^1.10.0",
-    "pg": "^8.7.1"
+    "pg": "^8.7.1",
+    "sequelize": "^6.9.0"
   },
   "main": "app.js",
   "repository": {
