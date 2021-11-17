@@ -1,10 +1,53 @@
-const { syncAndSeed } = require('./db');
+const { syncAndSeed, models: { Character, Description } } = require('./db');
+const express = require('express');
+const app = express();
 const chalk = require('chalk')
+const path = require('path')
+
+app.use('/', express.static(path.join(__dirname, 'public')));
+
+app.get('/', async(req, res, next) => { // display on browser, json data
+    try {
+        const [chars, desc] = await Promise.all([ // new variables to display data
+            Character.findAll(), // === SELECT * FROM Character 
+            Description.findAll() // === SELECT * FROM Description
+        ]);
+
+        res.send( { //adds these new variables to browser window
+            chars,
+            desc
+        });
+            // res.send(`
+        //      <html>
+        //      <head>
+        //          <title>Lord of the Rings Characters</title>
+        //          <link rel="stylesheet" href="style.css"/>
+        //      </head>
+        //      <body>
+        //          <div class="char-list">
+        //          <header><img src="ring_logo.png"/>Lord of the Rings Characters</header>
+        //          ${chars.map(post => `
+        //              <div class='char-item'>
+        //              <p>
+        //                  <a href='/posts/${post.id}'><span class="char-position"> <img src="/tree.png" height="25px" width="25px"/></span> ${post.name} : ${post.minibio}</a>
+        //              </p>
+        //              </div>`
+        //         ).join('')}
+        //         </div>
+        //     </body>
+        //     </html>
+        // `)
+    }
+    catch (ex) {
+        next(ex)
+    }
+})
 
 const init = async() => {
     try {
         await syncAndSeed();
-        console.log('all good seeded');
+        const port = process.env.PORT || 3000;
+        app.listen(port, ()=> console.log(`listening on port ${port}`));
     }
     catch(ex) {
         console.log(chalk.magenta(ex));
