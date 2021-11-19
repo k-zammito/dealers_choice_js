@@ -9,23 +9,22 @@ app.use('/', express.static(path.join(__dirname, 'public')));
 app.get('/', async(req, res, next) => { // display on browser, json data
     try {
         const [chars, desc] = await Promise.all([ // new variables to display data
-            await Character.findAll({
+            await Character.findAll({ // === SELECT * FROM Character 
                 include: [
+                    {
+                        model: Description,
+                        required: true
+                    },
                     {
                         model: Character,
                         as: 'companion',
                         required: true
-                    },
-                    {
-                        model: Description,
-                        required: true
                     }
                 ]
-            }), // === SELECT * FROM Character 
-            Description.findAll() // === SELECT * FROM Description
+            }), 
         ]);
 
-        res.send( { //adds these new variables to browser window
+        res.send( { 
             chars,
             desc
         });
@@ -67,8 +66,6 @@ const init = async() => {
 };
 
 init()
-
-
 
 ///ORIGINAL APP SERVER _________________________________________
 

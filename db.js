@@ -5,7 +5,6 @@ const conn = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost/lot
 const { DataTypes: { STRING, UUID, UUIDV4 } } = Sequelize;
 
 // CREATE MODELS:
-
 const Character = conn.define('character', {
     id: { 
         type: UUID, //
@@ -80,7 +79,7 @@ const data = {
 const syncAndSeed = async() => {
     await conn.sync({ force: true });
     const [gandalf, bilbo, frodo, sam, aragorn, boromir, legolas, gimli, merry, pippen, elrond, arwen, celeborn, galadriel, saruman, gollum] = await Promise.all(
-        data.name.map(name => Character.create({ name: name, miniBio: data.miniBio[0]})),
+        data.name.map(name => Character.create({ name: name })),
     )
     // const [minibio1, minibio2, minibio3, minibio4, minibio5, minibio6, minibio7, minibio8, minibio9, minibio10, minibio11, minibio12, minibio13, minibio14, minibio15, minibio16] = await Promise.all(
     //     data.miniBio.map(mini => Info.create({ miniBio: mini}))
@@ -128,8 +127,6 @@ const syncAndSeed = async() => {
     await Promise.all([
         bio1.save(), bio2.save(), bio3.save(), bio4.save(), bio5.save(), bio6.save(), bio7.save(), bio8.save(), bio9.save(), bio10.save(), bio11.save(), bio12.save(), bio13.save(), bio14.save(), bio15.save(), bio16.save(), gandalf.save(), bilbo.save(), frodo.save(), sam.save(), aragorn.save(), arwen.save()
     ])
-    // console.log(aragorn.get())
-    // console.log(bio5.get())
 };
 
 module.exports = {
