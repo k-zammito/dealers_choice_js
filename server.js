@@ -9,7 +9,20 @@ app.use('/', express.static(path.join(__dirname, 'public')));
 app.get('/', async(req, res, next) => { // display on browser, json data
     try {
         const [chars, desc] = await Promise.all([ // new variables to display data
-            Character.findAll(), // === SELECT * FROM Character 
+            await Character.findAll({
+                include: [
+                    {
+                        model: Character,
+                        as: 'companion',
+                        required: true
+                    }
+                    // {
+                    //     model: Description,
+                    //     as: 'biography',
+                    //     required: true
+                    // }
+                ]
+            }), // === SELECT * FROM Character 
             Description.findAll() // === SELECT * FROM Description
         ]);
 
