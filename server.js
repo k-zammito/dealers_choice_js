@@ -15,12 +15,11 @@ app.get('/', async(req, res, next) => { // display on browser, json data
                         model: Character,
                         as: 'companion',
                         required: true
+                    },
+                    {
+                        model: Description,
+                        required: true
                     }
-                    // {
-                    //     model: Description,
-                    //     as: 'biography',
-                    //     required: true
-                    // }
                 ]
             }), // === SELECT * FROM Character 
             Description.findAll() // === SELECT * FROM Description

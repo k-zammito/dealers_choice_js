@@ -46,7 +46,9 @@ const Description = conn.define('description', {
 })
 
 // Info.belongsTo(Character);
-Description.belongsTo(Character);
+// Description.belongsTo(Character);
+Character.hasOne(Description);
+
 Character.belongsTo(Character, { as: 'companion' });
 // Character.hasMany(Character, { foreignKey: 'fellowship-members'}) 
 
